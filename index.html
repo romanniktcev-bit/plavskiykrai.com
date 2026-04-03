@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Плавск и Плавский район | История, достопримечательности, люди</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: #F5F8FC;
+            color: #1E2A2E;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+        h1, h2, h3, .logo, .nav-links a, .hero-title, .section-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2C5F8A, #4A8BB7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #2C4A6E;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #4A8BB7;
+        }
+
+        .hero {
+            padding: 64px 0 32px 0;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: #E3EDF5;
+            padding: 6px 14px;
+            border-radius: 40px;
+            color: #2C5F8A;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-size: 3.4rem;
+            font-weight: 600;
+            color: #1F4662;
+            margin-bottom: 20px;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            color: #3A5A78;
+            max-width: 700px;
+            margin: 0 auto 32px;
+        }
+
+        /* Слайдер */
+        .slider-container {
+            max-width: 1000px;
+            margin: 20px auto 40px;
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+        .slide img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 1rem;
+            backdrop-filter: blur(4px);
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 10px 16px;
+            border-radius: 50%;
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .slider-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        .slider-btn.prev {
+            left: 16px;
+        }
+        .slider-btn.next {
+            right: 16px;
+        }
+        .dots {
+            text-align: center;
+            padding: 12px 0;
+            background: #F5F8FC;
+        }
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 6px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .dot.active {
+            background-color: #2C5F8A;
+        }
+
+        .section {
+            padding: 70px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1F4A6E;
+        }
+        .section-sub {
+            font-size: 1rem;
+            color: #5D6F83;
+            margin-bottom: 40px;
+            max-width: 720px;
+        }
+
+        .history-grid, .places-grid, .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+        .history-card, .place-card, .person-card {
+            cursor: pointer;
+            transition: all 0.25s;
+            background: white;
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf2;
+        }
+        .history-card:hover, .place-card:hover, .person-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.08);
+        }
+        .history-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #2C5F8A;
+        }
+        .history-card p {
+            color: #4B5E6F;
+        }
+        .sub-list {
+            margin-top: 14px;
+            padding-left: 20px;
+            list-style: none;
+        }
+        .sub-list li {
+            margin: 8px 0;
+            font-weight: 500;
+            color: #6F8FAA;
+            font-size: 0.9rem;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .place-card {
+            padding: 0;
+            overflow: hidden;
+        }
+        .place-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-color: #cbdbe6;
+        }
+        .place-content {
+            padding: 24px;
+        }
+        .place-content h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .badge-sub {
+            display: inline-block;
+            background: #E3EDF5;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 12px;
+            color: #2C5F8A;
+        }
+
+        .person-card {
+            text-align: center;
+        }
+        .person-card h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .person-title {
+            font-size: 0.85rem;
+            color: #4A8BB7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #FDFBF7;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 32px;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #2C5F8A;
+            transition: 0.2s;
+        }
+        .close-modal:hover {
+            color: #1F4662;
+        }
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            color: #1F4A6E;
+            font-family: 'Playfair Display', serif;
+        }
+        .modal-text {
+            font-size: 1rem;
+            color: #2d3a44;
+            line-height: 1.6;
+        }
+        .modal-text p {
+            margin-bottom: 16px;
+        }
+
+        /* Кнопка наверх */
+        .to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2C5F8A;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 99;
+        }
+        .to-top:hover {
+            background: #1F4662;
+            transform: scale(1.05);
+        }
+
+        .sitemap {
+            background: #E3EDF5;
+            border-radius: 40px;
+            padding: 48px 40px;
+            margin: 40px 0 20px;
+        }
+        .sitemap h3 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: #1F4A6E;
+        }
+        .sitemap-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+        .sitemap-col {
+            flex: 1;
+            min-width: 200px;
+        }
+        .sitemap-col h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-left: 3px solid #4A8BB7;
+            padding-left: 12px;
+            margin-bottom: 16px;
+        }
+        .sitemap-col ul {
+            list-style: none;
+        }
+        .sitemap-col li {
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: #2e3d4a;
+        }
+        .sitemap-col a {
+            text-decoration: none;
+            color: #2e3d4a;
+            display: inline-block;
+            padding: 4px 0;
+            transition: color 0.2s;
+        }
+        .sitemap-col a:hover {
+            color: #2C5F8A;
+            text-decoration: underline;
+        }
+        .sitemap-col ul ul {
+            margin-left: 16px;
+            margin-top: 6px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.8rem;
+            color: #7C8E9C;
+            border-top: 1px solid #d6e2e8;
+        }
+
+        @media (max-width: 700px) {
+            .hero-title { font-size: 2.4rem; }
+            .container { padding: 0 20px; }
+            .navbar { flex-direction: column; }
+            .nav-links { justify-content: center; }
+            .slide img { height: 250px; }
+            .to-top { width: 40px; height: 40px; font-size: 20px; bottom: 20px; right: 20px; }
+        }
+        .btn-scroll {
+            background: #2C5F8A;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">Плавский<span> край</span></div>
+            <div class="nav-links">
+                <a href="#history">История</a>
+                <a href="#places">Достопримечательности</a>
+                <a href="#people">Известные люди</a>
+                <a href="#sitemap">Карта сайта</a>
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-badge">Изучение родного края</div>
+            <h1 class="hero-title">Плавск и Плавский район</h1>
+            <p class="hero-desc">Древняя история, ратные подвиги, архитектурное наследие и люди, прославившие малую родину.</p>
+            <button class="btn-scroll" onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">Начать знакомство</button>
+        </div>
+
+        <!-- Слайдер -->
+        <div class="slider-container">
+            <div class="slider" id="slider">
+                <div class="slide">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Usadba_Gagarinih.jpg/1024px-Usadba_Gagarinih.jpg" alt="Усадьба Гагариных">
+                    <div class="slide-caption">Усадьба князей Гагариных</div>
+                </div>
+                <div class="slide">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/%D0%A6%D0%B5%D1%80%D0%BA%D0%BE%D0%B2%D1%8C_%D0%A1%D0%B5%D1%80%D0%B3%D0%B8%D1%8F_%D0%A0%D0%B0%D0%B4%D0%BE%D0%BD%D0%B5%D0%B6%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%28%D0%9F%D0%BB%D0%B0%D0%B2%D1%81%D0%BA%29.jpg" alt="Церковь Сергия Радонежского">
+                    <div class="slide-caption">Церковь Сергия Радонежского</div>
+                </div>
+                <div class="slide">
+                    <img src="https://img-fotki.yandex.ru/get/15577/160548458.1/0_13e2b4_4f7f2e2a_orig.jpg" alt="Мемориал Вечный огонь">
+                    <div class="slide-caption">Мемориал «Вечный огонь»</div>
+                </div>
+                <div class="slide">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Monument_to_Boris_Safonov_in_Plavsk.jpg" alt="Памятник Б.Ф. Сафонову">
+                    <div class="slide-caption">Памятник Б.Ф. Сафонову</div>
+                </div>
+            </div>
+            <button class="slider-btn prev" id="prevBtn">❮</button>
+            <button class="slider-btn next" id="nextBtn">❯</button>
+            <div class="dots" id="dots"></div>
+        </div>
+
+        <!-- РАЗДЕЛ ИСТОРИЯ -->
+        <div id="history" class="section">
+            <h2 class="section-title">История Плавского края</h2>
+            <div class="history-grid">
+                <div id="card-history-ancient" class="history-card" data-modal="history-ancient">
+                    <h3>📜 Древняя история</h3>
+                    <p>Неолит, вятичи, курганы и торговые пути. Подробнее о заселении края с древнейших времён.</p>
+                </div>
+                <div id="card-history-19" class="history-card" data-modal="history-19">
+                    <h3>🏛 XIX – начало XX века</h3>
+                    <p>Купеческий Плавск, ярмарки, железная дорога, земство и культурный подъём.</p>
+                </div>
+                <div id="card-history-ww2" class="history-card" data-modal="history-ww2">
+                    <h3>⚔️ Великая Отечественная война</h3>
+                    <p>Оборона, оккупация, партизанское движение, освобождение и память.</p>
+                    <ul class="sub-list">
+                        <li>🔹 Оборона Плавска (1941)</li>
+                        <li>🔹 Памятники воинской славы</li>
+                    </ul>
+                </div>
+                <div id="card-history-modern" class="history-card" data-modal="history-modern">
+                    <h3>🌟 Современная история района</h3>
+                    <p>Послевоенное восстановление, развитие сельского хозяйства, промышленности и туризма.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДОСТОПРИМЕЧАТЕЛЬНОСТИ -->
+        <div id="places" class="section">
+            <h2 class="section-title">Достопримечательности</h2>
+            <p class="section-sub">Архитектурные памятники, святыни и места воинской славы</p>
+            
+            <h3 style="font-size: 1.5rem; margin: 24px 0 16px 0;">🏛 Архитектурные памятники</h3>
+            <div class="places-grid">
+                <div id="card-place-gagarin" class="place-card" data-modal="place-gagarin">
+                    <div class="place-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Usadba_Gagarinih.jpg/1024px-Usadba_Gagarinih.jpg'); background-size: cover;"></div>
+                    <div class="place-content"><h4>Усадьба князей Гагариных</h4><p>Дворянская усадьба XVIII–XIX вв., парк, пруды. Объект культурного наследия.</p><span class="badge-sub">архитектура</span></div>
+                </div>
+                <div id="card-place-torg" class="place-card" data-modal="place-torg">
+                    <div class="place-img" style="background-image: url('https://avatars.mds.yandex.net/get-altay/10420691/2a0000018eb293638bb192c95e4661d054d4/XXL_height'); background-size: cover;"></div>
+                    <div class="place-content"><h4>Торговые ряды (XIX в.)</h4><p>Купеческое наследие, исторический центр Плавска.</p><span class="badge-sub">история торговли</span></div>
+                </div>
+                <div id="card-place-church" class="place-card" data-modal="place-church">
+                    <div class="place-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3f/%D0%A6%D0%B5%D1%80%D0%BA%D0%BE%D0%B2%D1%8C_%D0%A1%D0%B5%D1%80%D0%B3%D0%B8%D1%8F_%D0%A0%D0%B0%D0%B4%D0%BE%D0%BD%D0%B5%D0%B6%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%28%D0%9F%D0%BB%D0%B0%D0%B2%D1%81%D0%BA%29.jpg'); background-size: cover;"></div>
+                    <div class="place-content"><h4>Церковь Сергия Радонежского</h4><p>Духовный центр, изящный храм с богатой историей.</p><span class="badge-sub">православие</span></div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.5rem; margin: 48px 0 16px 0;">🎖 Памятники воинской славы</h3>
+            <div class="places-grid">
+                <div id="card-war-memorial" class="place-card" data-modal="war-memorial">
+                    <div class="place-img" style="background-image: url('https://img-fotki.yandex.ru/get/15577/160548458.1/0_13e2b4_4f7f2e2a_orig.jpg'); background-size: cover;"></div>
+                    <div class="place-content"><h4>Мемориал «Вечный огонь»</h4><p>Символ памяти павших в годы Великой Отечественной войны.</p></div>
+                </div>
+                <div id="card-war-brothers" class="place-card" data-modal="war-brothers">
+                    <div class="place-img" style="background-image: url('https://sun9-10.userapi.com/impg/GgH7hD2w0ss5Cf2hxJlM04M0Z4m5LvU2PcTb2g/K8M5bBx0--s.jpg?size=1280x960&quality=96&sign=52d7b3f4b1c9a6d5e8f3e4a2c1b5d6f7&type=album'); background-size: cover;"></div>
+                    <div class="place-content"><h4>Братские могилы</h4><p>Захоронения советских воинов, освобождавших Плавский район.</p></div>
+                </div>
+                <div id="card-war-safonov" class="place-card" data-modal="war-safonov">
+                    <div class="place-img" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6d/Monument_to_Boris_Safonov_in_Plavsk.jpg'); background-size: cover;"></div>
+                    <div class="place-content"><h4>Памятник Б.Ф. Сафонову</h4><p>Летчик-ас, дважды Герой Советского Союза.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ИЗВЕСТНЫЕ ЛЮДИ (без упоминания "включая Б.Ф. Сафонова") -->
+        <div id="people" class="section">
+            <h2 class="section-title">Известные люди Плавского края</h2>
+            <div class="people-grid">
+                <div id="card-people-heroes" class="person-card" data-modal="people-heroes">
+                    <h4>Герои Советского Союза</h4>
+                    <div class="person-title">Уроженцы района</div>
+                    <p class="person-desc">12 героев, прославивших землю в боях за Родину.</p>
+                </div>
+                <div id="card-people-culture" class="person-card" data-modal="people-culture">
+                    <h4>Учёные, писатели, деятели культуры</h4>
+                    <div class="person-title">Гордость земли</div>
+                    <p class="person-desc">В.А. Ситников, Н.И. Родичев, художники и музыканты.</p>
+                </div>
+                <div id="card-people-honor" class="person-card" data-modal="people-honor">
+                    <h4>Почетные граждане Плавска</h4>
+                    <div class="person-title">За заслуги перед городом</div>
+                    <p class="person-desc">Врачи, учителя, ветераны, строители.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- КАРТА САЙТА (без упоминания Сафонова в подписях) -->
+        <div id="sitemap" class="sitemap">
+            <h3>🗺 Карта сайта — кликните по пункту, чтобы перейти к разделу</h3>
+            <div class="sitemap-grid">
+                <div class="sitemap-col">
+                    <h4>Главная</h4>
+                    <ul><li><a href="#hero">Обзор Плавского края</a></li></ul>
+                    <h4>История</h4>
+                    <ul>
+                        <li><a href="#card-history-ancient">Древняя история</a></li>
+                        <li><a href="#card-history-19">XIX – начало XX века</a></li>
+                        <li><a href="#card-history-ww2">Великая Отечественная война</a></li>
+                        <li><a href="#card-history-modern">Современная история</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-col">
+                    <h4>Достопримечательности</h4>
+                    <ul>
+                        <li><a href="#card-place-gagarin">Усадьба Гагариных</a></li>
+                        <li><a href="#card-place-torg">Торговые ряды</a></li>
+                        <li><a href="#card-place-church">Церковь Сергия Радонежского</a></li>
+                        <li><a href="#card-war-memorial">Мемориал «Вечный огонь»</a></li>
+                        <li><a href="#card-war-brothers">Братские могилы</a></li>
+                        <li><a href="#card-war-safonov">Памятник Б.Ф. Сафонову</a></li>
+                    </ul>
+                </div>
+                <div class="sitemap-col">
+                    <h4>Известные люди</h4>
+                    <ul>
+                        <li><a href="#card-people-heroes">Герои Советского Союза</a></li>
+                        <li><a href="#card-people-culture">Деятели культуры и науки</a></li>
+                        <li><a href="#card-people-honor">Почетные граждане</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 — Изучение родного края. Плавск и Плавский район.</p>
+            <p>Кликните на любую карточку для подробной информации | Карта сайта ведёт к разделам</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-title" class="modal-title"></div>
+            <div id="modal-text" class="modal-text"></div>
+        </div>
+    </div>
+
+    <!-- Кнопка наверх -->
+    <button class="to-top" id="toTopBtn">↑</button>
+
+    <script>
+        // ==================== СЛАЙДЕР ====================
+        const slider = document.getElementById('slider');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dots');
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentIndex);
+            });
+        }
+
+        function createDots() {
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (idx === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = idx;
+                    updateSlider();
+                    resetAutoSlide();
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlider();
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        createDots();
+        startAutoSlide();
+
+        // ==================== КНОПКА НАВЕРХ ====================
+        const toTopBtn = document.getElementById('toTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                toTopBtn.style.display = 'flex';
+            } else {
+                toTopBtn.style.display = 'none';
+            }
+        });
+        toTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ==================== МОДАЛЬНЫЕ ОКНА (расширенные данные, без упоминания "включая Сафонова") ====================
+        const modalData = {
+            'history-ancient': { /* ... */ 
+                title: '📜 Древняя история Плавского края',
+                text: `<p>Территория современного Плавского района была заселена с эпохи неолита (V–III тыс. до н.э.). Археологические раскопки у сёл Молочные Дворы, Самозвановка выявили стоянки древних охотников и рыболовов, а также орудия из кремня и кости. В раннем средневековье (IX–XI вв.) эти земли входили в ареал расселения племени вятичей, которые оставили после себя курганные могильники (сохранились у деревни Горбачёво).</p><p>Через край проходил важный торговый путь «из варяг в греки» (его волоковый вариант). Название реки Плава, давшей имя городу, имеет балтийские корни (от "plau" — "течь, плыть"), что свидетельствует о древнем заселении региона финно-угорскими племенами, впоследствии ассимилированными славянами. Первое летописное упоминание о поселениях в этих местах относится к XII веку (в составе Черниговского княжества).</p><p>В XIV веке территория вошла в состав Великого княжества Московского. В XVI–XVII веках здесь проходила засечная черта — система укреплений против крымских набегов. Сохранились фрагменты земляных валов и сторожевых курганов. В XVIII веке началось активное заселение края помещиками.</p>`
+            },
+            'history-19': { /* ... */
+                title: '🏛 Плавск в XIX – начале XX века',
+                text: `<p>В XIX веке Плавск (тогда село Сергиевское) становится важным торговым центром Тульской губернии. После строительства железной дороги Москва — Курск в 1868 году, станция Плавск превращается в узел перевозки хлеба, леса и сельхозпродукции. Местные купцы — братья Головины, Лыковы, купцы Баташовы — вели обширную торговлю, строили склады, лавки, школы и богадельни.</p><p>В 1870 году открывается земская больница на 20 коек, в 1884-м — народное училище. Архитектурный облик города формируют Торговые ряды (построены в 1890-х), каменные купеческие особняки на улице Советской (бывшей Московской), здание железнодорожного вокзала (1903 г.). Плавск славился ярмарками (Троицкая, Вознесенская), на которые съезжались купцы из Орла, Тулы, Калуги, Курска. Годовой оборот ярмарок достигал 500 тысяч рублей.</p><p>К началу XX века население превышало 5 тысяч человек. В городе действовали кожевенный завод, свечное производство, маслобойни, кирпичные заводы. В 1905 году прошли выступления рабочих железнодорожной станции. В 1917 году установлена советская власть. В 1926 году Плавск получил статус посёлка городского типа, а в 1939 году — города.</p>`
+            },
+            'history-ww2': { /* ... */
+                title: '⚔️ Плавский район в годы Великой Отечественной войны',
+                text: `<p><strong>Оборона Плавска (октябрь-ноябрь 1941 года):</strong> Немецкие войска 2-й танковой армии Гудериана рвались к Туле. Плавск оказался на пути главного удара. Бойцы 6-й гвардейской стрелковой дивизии, 11-й танковой бригады и истребительные батальоны держали оборону почти месяц. 29 октября 1941 года после ожесточённых боев город был оккупирован. В годы оккупации действовало подполье (руководители — Н.И. Кочетков, А.П. Кузнецов), партизанские отряды «Смерть фашизму» и «За Родину». Подпольщики пустили под откос 3 эшелона с техникой, уничтожили 17 вражеских солдат.</p><p><strong>Освобождение:</strong> 20 июля 1943 года в ходе Орловской наступательной операции (часть Курской битвы) Плавск был освобождён частями 11-й гвардейской армии. Бои шли за каждый дом, многие здания были разрушены. В братских могилах района покоятся более 10 тысяч солдат и офицеров. Среди них — Герой Советского Союза А.Т. Карпов.</p><p><strong>Памятники воинской славы:</strong> В городе и районе установлены десятки обелисков, стел и мемориалов. Главный — мемориал «Вечный огонь» в центре Плавска, открыт в 1975 году. Ежегодно 20 июля и 9 Мая проходят торжественные церемонии с возложением цветов и парадом юнармейцев.</p>`
+            },
+            'history-modern': { /* ... */
+                title: '🌟 Современная история Плавского района',
+                text: `<p>После войны Плавск восстанавливался как центр сельскохозяйственного района. В 1950–60-е годы построены маслосырзавод (1957), элеватор (1961), промкомбинат (1965), комбинат бытового обслуживания. В 1970-х район стал одним из лидеров Тульской области по производству зерна и молока.</p><p>В 1990-е годы район пережил экономический спад, но сохранил свой культурный потенциал. С 2000-х началось возрождение: модернизированы фермерские хозяйства, открыты новые предприятия (ООО «Плавский мясокомбинат», «Плавск-Агро»), развивается малое предпринимательство. В 2022 году запущен цех по производству безалкогольных напитков «Плавская вода». Уровень безработицы — 0,6% (один из самых низких в области).</p><p>В 2019 году Плавск отметил 80-летие со дня присвоения статуса города. Благоустроены набережная реки Плавы, центральный парк, открыт новый физкультурно-оздоровительный комплекс. Действует краеведческий музей (основан в 1987 г.) с богатой экспозицией, включающей диораму «Штурм Плавска» и коллекцию купеческого быта. Развивается событийный туризм: фестиваль «Плавская осень», военно-историческая реконструкция «Оборона Плавска».</p>`
+            },
+            'place-gagarin': { /* ... */
+                title: 'Усадьба князей Гагариных',
+                text: `<p>Родовая усадьба князей Гагариных расположена в селе Бочарово Плавского района (в 7 км от Плавска). Построена в конце XVIII века (около 1785 г.) в стиле классицизм. Архитектурный ансамбль включал двухэтажный господский дом с колоннадой, два флигеля, конный двор, каменную церковь Рождества Христова (не сохранилась) и живописный пейзажный парк с каскадом прудов и липовыми аллеями. Усадьба принадлежала князьям Гагариным — старинному дворянскому роду, восходящему к Рюриковичам.</p><p>В усадьбе бывали литераторы: И.С. Тургенев (родственник Гагариных), А.А. Фет, композитор А.С. Даргомыжский. После революции 1917 года усадьба была национализирована, здания использовались под школу, больницу, склад. В 1990-е годы началась реставрация при поддержке областного бюджета. Сохранились парк (площадью около 10 га), фрагменты главного дома (стены, подвалы), въездные ворота, хозяйственные постройки. Усадьба — объект культурного наследия федерального значения, популярное место экскурсий и исторических фестивалей. В 2023 году открыта туристическая тропа «Гагаринская аллея».</p>`
+            },
+            'place-torg': { /* ... */
+                title: 'Торговые ряды (XIX век)',
+                text: `<p>Торговые ряды в центре Плавска (улица Коммунистическая, 1) — уникальный архитектурный комплекс конца XIX века (построены в 1890–1892 гг. на средства купцов Головиных). Состоят из двух параллельных корпусов из красного кирпича в формах эклектики с элементами русского стиля. Арочные проёмы, фигурные фронтоны, кованые ворота. Внутри размещались мясные, бакалейные, мануфактурные лавки, трактир. В начале XX века здесь насчитывалось более 50 торговых мест.</p><p>Вокруг рядов шла бойкая ярмарочная жизнь. До наших дней ряды сохранили исторический облик, используются под магазины, аптеку, кафе. В 2015 году проведена реставрация фасадов, восстановлены утраченные декоративные элементы. Торговые ряды — один из символов купеческого прошлого Плавска, объект культурного наследия регионального значения. Ежегодно в августе на площади перед рядами проходит ярмарка «Плавский посад».</p>`
+            },
+            'place-church': { /* ... */
+                title: 'Церковь Сергия Радонежского',
+                text: `<p>Каменный храм во имя преподобного Сергия Радонежского был построен в 1824 году на средства прихожан и купцов. Архитектура — классицизм с элементами древнерусского зодчества: четверик с полукруглой апсидой, трапезная, трёхъярусная колокольня. Внутри сохранились фрагменты масляной живописи XIX века и позолоченный резной иконостас (восстановлен в 2000-х). В 1867 году при храме открылась церковно-приходская школа.</p><p>В советские годы (1930–1991) церковь была закрыта, здание использовалось под зерносклад, затем под клуб. В 1991 году возвращена верующим, началась реставрация. Сегодня это действующий храм, при нём работает воскресная школа, библиотека православной литературы. Церковь является духовным центром православных жителей Плавского района. В 2018 году установлен новый иконостас, проведено внешнее освещение. Регулярно проводятся экскурсии для школьников.</p>`
+            },
+            'war-memorial': { /* ... */
+                title: 'Мемориал «Вечный огонь»',
+                text: `<p>Мемориальный комплекс в центре Плавска (сквер Победы) был открыт 9 мая 1975 года к 30-летию Победы. Авторы — скульптор В.И. Буякин, архитектор В.А. Петров. Комплекс включает: 8-метровую гранитную стелу с барельефом воина-освободителя, фигуру скорбящей матери у подножия, чашу с Вечным огнём (газ подведён от городской сети). На мраморных плитах высечены имена 1523 воинов, павших при освобождении Плавского района (поимённый список уточняется поисковиками). В 2015 году добавлены плиты с именами 47 погибших подпольщиков.</p><p>В 2020 году проведена реконструкция: заменено покрытие площади, обновлено освещение, установлены новые гранитные плиты, отреставрирована фигура матери. Ежегодно 9 Мая и 20 июля (день освобождения Плавска) у мемориала проходят торжественные церемонии, возложение цветов, парад юнармейцев, минута молчания. Мемориал является главным местом памяти в городе.</p>`
+            },
+            'war-brothers': { /* ... */
+                title: 'Братские могилы Плавского района',
+                text: `<p>На территории Плавского района насчитывается 17 братских захоронений времён Великой Отечественной войны. Крупнейшие расположены в сёлах: Мещерино (покоятся 847 воинов), Молочные Дворы (621 воин), Самозвановка (389 воинов), Горбачёво (274 воина). В братских могилах покоятся как советские солдаты, так и мирные жители, расстрелянные оккупантами (в сёлах Юрьево и Красное — более 200 мирных граждан).</p><p>На местах захоронений установлены типовые обелиски и памятные знаки (большинство отреставрированы в 2010–2020 гг.). Местные школьники и волонтёры ухаживают за могилами, ведут поисковую работу по установлению имён погибших. В 2018 году издана Книга памяти Плавского района, куда внесены более 4000 имён. В 2022 году поисковый отряд «Пламя» нашёл останки 57 солдат и установил 12 имён.</p>`
+            },
+            'war-safonov': { /* ... */
+                title: 'Памятник Б.Ф. Сафонову',
+                text: `<p>Памятник дважды Герою Советского Союза Борису Феоктистовичу Сафонову установлен в центре Плавска на Аллее Героев (улица Свободы). Бронзовый бюст на гранитном постаменте был открыт в 1953 году, реконструирован в 2005-м. У подножия — мемориальные плиты с текстом указа о присвоении звания Героя. Ежегодно 26 августа (день рождения) у памятника проходят митинги с участием лётчиков и юнармейцев. Именем Сафонова названы улицы в Плавске, Североморске, Сафоново, а также школа №1 в Плавске.</p><p>Подробнее о Б.Ф. Сафонове см. в карточке «Герои Советского Союза».</p>`
+            },
+            'people-heroes': { // удалена фраза про "включая Сафонова" и убран дубль в тексте
+                title: 'Герои Советского Союза – уроженцы Плавского района',
+                text: `<p><strong>Борис Феоктистович Сафонов</strong> (1915–1942) — дважды Герой Советского Союза (1941, 1942 — посмертно). Родился в селе Синявино (ныне микрорайон Плавска). Лётчик-ас Северного флота, лично сбил 25 самолётов противника, погиб в бою. Подробнее — в экспозиции краеведческого музея.</p><p><strong>Алексей Тихонович Карпов</strong> (1917–1944) — лётчик-штурмовик, совершил 103 боевых вылета, уничтожил 31 танк, 45 автомашин. Герой Советского Союза (посмертно). Уроженец д. Горбачёво. Его именем названа улица в Плавске.</p><p><strong>Михаил Иванович Наумов</strong> (1908–1974) — командир партизанского соединения на Украине, генерал-майор, Герой Советского Союза. Родился в с. Большие Озерки. В Плавске установлена мемориальная доска.</p><p><strong>Пётр Степанович Курочкин</strong> (1911–1974) — танкист, отличился в битве на Курской дуге, Герой Советского Союза. Уроженец д. Крутое.</p><p><strong>Иван Егорович Заикин</strong> (1918–1944) — пехотинец, закрыл амбразуру дзота грудью. Герой России (посмертно). Уроженец д. Молочные Дворы.</p><p><strong>Николай Иванович Кочетков</strong> (1919–1942) — подпольщик, руководитель плавского антифашистского подполья, казнён оккупантами. Герой России (посмертно).</p><p>Всего Плавская земля дала стране 12 Героев Советского Союза и 2 полных кавалера ордена Славы, а также 2 Героя России. Их именами названы улицы и школы в районе. В краеведческом музее действует постоянная экспозиция «Золотые звёзды плавчан».</p>`
+            },
+            'people-culture': { /* ... без изменений */ 
+                title: 'Учёные, писатели, деятели культуры',
+                text: `<p><strong>Владимир Александрович Ситников</strong> (род. 1951) — писатель, член Союза писателей России, автор 30 книг о природе и истории Тульского края, лауреат литературной премии имени Л.Н. Толстого. Родился в Плавске.</p><p><strong>Николай Иванович Родичев</strong> (1931–2016) — краевед, заслуженный учитель РФ, основатель народного музея Плавска, автор книг «Плавск: страницы истории», «Плавский район в годы войны».</p><p><strong>Елена Владимировна Кузнецова</strong> (род. 1965) — художник-керамист, заслуженный художник РФ, чьи работы экспонируются в музеях Тулы, Москвы, Санкт-Петербурга. Родилась в Плавске.</p><p><strong>Владимир Михайлович Богданов</strong> (род. 1958) — композитор, автор песен о Плавске, лауреат всероссийских фестивалей. Руководитель народного хора «Плавские зори».</p><p><strong>Алексей Иванович Щербаков</strong> (1928–2015) — почётный гражданин, строитель, восстанавливавший город после войны, автор книг воспоминаний.</p><p>Развитию культуры способствуют Плавский дом ремёсел (гончарная мастерская, народная кукла), детская школа искусств (открыта в 1967 г.), ежегодный фестиваль «Плавская мозаика» (июнь). В 2024 году открыт виртуальный концертный зал.</p>`
+            },
+            'people-honor': { /* ... без изменений */
+                title: 'Почетные граждане Плавска',
+                text: `<p>Звание «Почетный гражданин города Плавска» присваивается с 1975 года. Список почётных граждан (в хронологическом порядке):<br>
+                - <strong>Иван Степанович Минаев</strong> (1922–2012) — ветеран войны, участник обороны Плавска, председатель совета ветеранов (1975–2005).<br>
+                - <strong>Зоя Павловна Соловьёва</strong> (1927–2018) — заслуженный учитель РСФСР, 50 лет проработала в школе №1, воспитала тысячи учеников.<br>
+                - <strong>Владимир Фёдорович Жуков</strong> (род. 1945) — заслуженный врач РФ, главный врач районной больницы в 1980–2010 гг., под его руководством построен новый хирургический корпус.<br>
+                - <strong>Алексей Иванович Щербаков</strong> (1928–2015) — почётный строитель, восстанавливал Плавск после войны, построил десятки жилых домов и социальных объектов.<br>
+                - <strong>Геннадий Александрович Рыжков</strong> (род. 1950) — краевед, автор книг по истории Плавска, инициатор установки мемориальных досок героям.<br>
+                - <strong>Валентина Петровна Орлова</strong> (род. 1955) — заслуженный работник культуры, директор Дома ремёсел, возродившая гончарный промысел.</p><p>В 2023 году звание присвоено посмертно лётчику Б.Ф. Сафонову (ранее он не был официально почётным гражданином).</p>`
+            }
+        };
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalText = document.getElementById('modal-text');
+        const closeModalSpan = document.querySelector('.close-modal');
+
+        function openModal(id) {
+            const data = modalData[id];
+            if (data) {
+                modalTitle.innerHTML = data.title;
+                modalText.innerHTML = data.text;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.warn('Нет данных для модала:', id);
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.querySelectorAll('[data-modal]').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const modalId = el.getAttribute('data-modal');
+                if (modalId) openModal(modalId);
+            });
+        });
+
+        closeModalSpan.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+        });
+
+        document.querySelectorAll('.nav-links a, .btn-scroll, .sitemap a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const hash = this.getAttribute('href');
+                if (hash && hash.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(hash);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
